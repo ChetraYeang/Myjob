@@ -2,8 +2,8 @@
 <html>
     <head>
         <title>Laravel</title>
+        {!!html::style('https://fonts.googleapis.com/css?family=Lato:100')!!}
 
-        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
 
         <style>
             html, body {
