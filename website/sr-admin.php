@@ -1,15 +1,14 @@
 <?php include_once 'admin/dbconfig.php';
-if(!$user->is_loggedin())
-{
-     $user->redirect('login.php');
-}else{
+if (!$user->is_loggedin()) {
+	$user->redirect('login.php');
+} else {
 
-  $user_id = $_SESSION['user_id'];
-  $stmt = $DB_con->prepare("SELECT * FROM users WHERE user_id=:user_id");
-  $stmt->execute(array(":user_id"=>$user_id));
-  $userRow=$stmt->fetch(PDO::FETCH_ASSOC);
-  $user_level = $userRow['u_level'];
-  date_default_timezone_set('Asia/Bangkok');
+	$user_id = $_SESSION['user_id'];
+	$stmt = $DB_con->prepare("SELECT * FROM users WHERE user_id=:user_id");
+	$stmt->execute(array(":user_id" => $user_id));
+	$userRow = $stmt->fetch(PDO::FETCH_ASSOC);
+	$user_level = $userRow['u_level'];
+	date_default_timezone_set('Asia/Bangkok');
 }
 
 ?>
@@ -40,12 +39,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
      <link rel="stylesheet" href="dist/css/adjustment.css">
-    
+
     <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
           page. However, you can choose any other skin. Make sure you
           apply the skin class to the body tag so the changes take effect.
     -->
-   
+
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -105,17 +104,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <!-- The user image in the navbar-->
                   <img src="img/user2-160x160.gif" class="user-image" alt="User Image">
                   <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                  <span class="hidden-xs"><?php print($userRow['user_name']); ?></span>
+                  <span class="hidden-xs"><?php print($userRow['user_name']);?></span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- The user image in the menu -->
                   <li class="user-header">
                     <img src="img/user2-160x160.gif" class="img-circle" alt="User Image">
                     <p>
-                      <?php print($userRow['user_name']); ?> - Web Developer
+                      <?php print($userRow['user_name']);?> - Web Developer
                       <small>Member since Nov. 2012</small>
                     </p>
-                  </li>                 
+                  </li>
                   <!-- Menu Footer-->
                   <li class="user-footer">
                     <div class="pull-left">
@@ -127,7 +126,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </li>
                 </ul>
               </li>
-              
+
             </ul>
           </div>
         </nav>
@@ -144,7 +143,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <img src="img/user2-160x160.gif" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
-              <p><?php print($userRow['user_name']); ?></p>
+              <p><?php print($userRow['user_name']);?></p>
               <!-- Status -->
               <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
@@ -167,7 +166,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <!-- Optionally, you can add icons to the links -->
            <!-- <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>
             <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>-->
-            
+
              <li class="treeview">
               <a href="#"><i class="fa fa-link"></i> <span>MENU</span> <i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">
@@ -188,7 +187,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <li class="treeview">
               <a href="#"><i class="fa fa-link"></i> <span>OUR BLOG</span> <i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">
-              
+
                 <li><a href="sr-admin.php?page=content_list">Content</a></li>
                 <li><a href="sr-admin.php?page=content">Add new Content</a></li>
               </ul>
@@ -201,7 +200,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                  <li><a href="sr-admin.php?page=services&service_type=restaurant">Add Restaurant</a></li>
                 <li><a href="sr-admin.php?page=services_list&sercive_type=restaurant">List Restaraunt</a></li>
                 <li><a href="sr-admin.php?page=bus_shedule_departure">Add transportation schedule</a></li>
-                <li><a href="sr-admin.php?page=services_list&sercive_type=restaurant">List Add transportation schedule</a></li>
+                <li><a href="sr-admin.php?page=bus_shedule_list">List Add transportation schedule</a></li>
               </ul>
             </li>
 
@@ -222,7 +221,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-            SR Angkor Travel Co., Ltd. 
+            SR Angkor Travel Co., Ltd.
             <small>System Administrator</small>
           </h1>
          <!-- <ol class="breadcrumb">
@@ -235,49 +234,53 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <section class="content">
 
           <!-- Your Page Content Here -->
-          <?php 
-            switch (@$_REQUEST["page"]) {
-              case 'add_menu':
-                  include "admin/menu.php";
-                break;
-              case 'menu_list':
-                  include "admin/menu_list.php";
-                break;
-              case 'add_images':
-                  include "admin/add_image_all.php";
-                break;
-              case 'add_package_tours':
-                  include "admin/package_tours.php";
-                break;
-              case 'package_tours_list':
-                  include "admin/package_tours_list.php";
-              break;
-              case 'content':
-                  include "admin/content.php";
-              break;
-              case 'content_list':
-                  include "admin/content_list.php";
-              break;
-               case 'slide_show':
-                  include "admin/slide_show.php";
-              break;
-              
-               case 'services':
-                  include "admin/services.php";
-              break;
-                case 'services_list':
-                  include "admin/services_list.php";
-              break;
+          <?php
+switch (@$_REQUEST["page"]) {
+case 'add_menu':
+	include "admin/menu.php";
+	break;
+case 'menu_list':
+	include "admin/menu_list.php";
+	break;
+case 'add_images':
+	include "admin/add_image_all.php";
+	break;
+case 'add_package_tours':
+	include "admin/package_tours.php";
+	break;
+case 'package_tours_list':
+	include "admin/package_tours_list.php";
+	break;
+case 'content':
+	include "admin/content.php";
+	break;
+case 'content_list':
+	include "admin/content_list.php";
+	break;
+case 'slide_show':
+	include "admin/slide_show.php";
+	break;
 
-                case 'bus_shedule_departure':
-                  include "admin/bus_shedule_departure.php";
-              
-                  break;
-              default:
-                  include "admin/first_box.php";
-                break;
-            }
-          ?>
+case 'services':
+	include "admin/services.php";
+	break;
+case 'services_list':
+	include "admin/services_list.php";
+	break;
+
+case 'bus_shedule_departure':
+	include "admin/bus_shedule_departure.php";
+
+	break;
+case 'bus_shedule_list':
+	include "admin/bus_shedule_list.php";
+
+	break;
+default:
+	include "admin/first_box.php";
+	break;
+}
+?>
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
 
@@ -387,9 +390,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script type="text/javascript">
 tinymce.init({
   selector: ".textarea1",
-  
-  
-  
+
+
+
   plugins: [
                 "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
                 "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
@@ -402,8 +405,8 @@ tinymce.init({
 
         menubar: false,
         toolbar_items_size: 'small',
-  
-    
+
+
 // Image Path Convert URL
 relative_urls: false,
 remove_script_host: false,
@@ -426,9 +429,9 @@ document_base_url: 'http://srangkortravel.com',
         "Verdana=verdana,geneva;"+
         "Webdings=webdings;"+
         "Wingdings=wingdings,zapf dingbats"*/
-    
+
 });
- 
+
 </script>
 
 
