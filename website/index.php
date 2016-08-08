@@ -6,14 +6,13 @@ include "/admin/resize-class.php";
 $stmt_s = $DB_con->prepare("SELECT a.id,a.prices, a.tran_time, a.tran_company,a.tran_enable,b.c_main_id,a.vichicle_type, b.c_title, (SELECT s.c_title FROM menu as s
           WHERE s.c_id=a.destinations) as destinations FROM transportation as a LEFT JOIN menu as b ON b.c_id=a.tran_company ORDER BY b.c_title");
 $stmt_s->execute();
-$stmt_menu = $DB_con->prepare("SELECT f.c_id, f.c_title, f.c_is_show, f.c_headline, f.c_main_id, (SELECT s.c_title FROM menu as s WHERE s.c_id=f.c_main_id) as parent FROM menu as f WHERE f.c_main_id=51");
-$stmt_menu->execute();
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Easy Travel - SHV</title>
@@ -49,23 +48,14 @@ http://www.templatemo.com/tm-475-holiday
 		              <i class="fa fa-bars"></i>
 		            </div>
 	  				<nav class="tm-nav">
-						<ul>
-							<li><a href="index.php" class="active">Home</a></li>
-							<li class="dropdown">
-								<a  href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Corporate Company </a>
-								<ul class="dropdown-menu">
+						<ul><?php
+$stmt_menu = $DB_con->prepare("SELECT c_id, c_title, c_is_show, c_headline, c_main_id FROM menu  WHERE c_main_id=0 AND c_is_show=1");
+$stmt_menu->execute();
+while ($result_menu = $stmt_menu->fetch(PDO::FETCH_ASSOC)) {
+	?>
+							<li><a href="#"> <?php echo $result_menu['c_title']; ?></a> </li>
 								<?php
-while ($result_menu = $stmt_menu->fetch(PDO::FETCH_ASSOC)) {?>
-									<li><a href=""> <?php echo $result_menu['c_title']; ?></a> </li>
-
-								<?php }?>
-								</ul>
-							</li>
-        					<li><a href="#">Departure Schedule</a></li>
-							<li><a href="#">Other Service</a></li>
-							<li><a href="#">About us</a></li>
-							<li><a href="#">Contact Us</a></li>
-
+}?>
 						</ul>
 					</nav>
 	  			</div>
