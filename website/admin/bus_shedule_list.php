@@ -35,7 +35,7 @@ while ($result_s = $stmt_s->fetch(PDO::FETCH_ASSOC)) {
       <tr>
         <td> <?php echo $i; ?> </td>
         <td> <?php echo $result_s['destinations']; ?> </td>
-        <td> <?php echo $result_s['tran_time'] . ' h/day'; ?> </td>
+        <td> <?php echo $result_s['tran_time']; ?> </td>
         <td> <?php echo $result_s['c_title']; ?> </td>
         <td> <?php echo ($result_s['tran_enable']) ? 'Enable' : 'Disable'; ?></td>
         <td> <?php echo ($result_s['display'] == 1) ? 'Publish' : 'Unpublish'; ?></td>

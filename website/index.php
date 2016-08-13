@@ -283,7 +283,7 @@ while ($result_s = $stmt_s->fetch(PDO::FETCH_ASSOC)) {
 	?>
 						      <tr>
 						        <td> <?php echo $result_s['destinations'] . '- Shihanuk'; ?> </td>
-						        <td> <?php echo $result_s['tran_time'] . ' h/day'; ?> </td>
+						        <td> <?php echo $result_s['tran_time']; ?> </td>
 						        <td> <?php echo '$ ' . $result_s['prices'] . '.00'; ?> </td>
 						        <td> <?php echo $result_s['c_title']; ?> </td>
 						        <td> <?php echo 'BUS | ' . $result_s['vichicle_type'] . ' Seat'; ?></td>
